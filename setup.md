@@ -58,6 +58,13 @@ agy invocation (auto-approves ALL its tools — see the playbook's caution).
 | A Wappalyzer-class tech detector (CLI or MCP) | Tech-stack fingerprinting of the marketing site and app subdomain | any current OSS "Wappalyzer alternative" CLI/MCP — check `npx` registry or `pip` at run time, since exact package names churn; do not assume a specific one is still current |
 | `appstore-review-cli` (or equivalent) | Structured App Store / Google Play listing + review data without needing developer accounts | check current OSS options — this space moves fast, confirm the tool is still maintained before relying on it |
 
+No additional CLIs are needed for the decision-grade methodology: revenue
+estimator / FCC-filing / Wayback / traffic-proxy lookups all run through
+`agy` or the built-in web search/fetch tools, and desktop installer sizes
+come from `curl -sI` HEAD requests (curl is already listed above). Mobile
+release data deliberately stops at store-listing metadata — the kit never
+extracts APK/IPA binaries, so no extraction tooling is wanted.
+
 ## Verify before running the skill
 
 ```bash

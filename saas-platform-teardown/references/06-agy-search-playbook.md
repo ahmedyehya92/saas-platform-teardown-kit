@@ -125,6 +125,54 @@ Return ONLY valid JSON, no prose, no markdown fences, matching this shape:
    names, languages, infra providers). Cite each claim to a specific
    posting or post."
 
+8. **Revenue / business-scale estimates** — "Find revenue or ARR estimates
+   for <company> from Owler, Craft.co, Growjo, and any PitchBook or press
+   coverage of funding rounds. Report each funding round (amount, date,
+   stage, lead investor) and LinkedIn's 'estimated revenue' band if
+   visible. Return each estimate SEPARATELY with the source site named —
+   do not average or merge them. Say 'not found' per source if absent."
+
+9. **Mobile app traction** — "Find any public download or revenue estimates
+   for <product>'s iOS and Android apps from Sensor Tower, data.ai
+   (Similarweb), or Appfigures — usually via blog posts or press articles
+   citing them. Report the figure, which app, the estimating firm, and the
+   citing page URL."
+
+10. **Web traffic proxy** — "Find Similarweb or SEMrush public estimates of
+    monthly visits and global rank for <domain>. These are traffic
+    proxies only — label them as scale indicators, not revenue."
+
+11. **Public-filings check** — "Is <company> publicly traded, a subsidiary
+    of a public company, or otherwise a regulator filer (SEC 10-K/20-F,
+    Form 990)? If yes, name the filing and the revenue the latest filing
+    states for the most recent fiscal year."
+
+12. **Customer-count claims** — "Find public customer/team/logo counts for
+    <product>: marketing-site claims ('trusted by N teams'), case studies,
+    press releases, about pages. Report the number, the claim's exact
+    wording, and the page it appears on."
+
+13. **Hardware filings (only when Phase 0 found hardware)** — "Search the
+    FCC ID database and fccid.io for wireless equipment authorization
+    filings by <company> or branded '<product>' devices. Report FCC IDs,
+    the grantee/manufacturer name on each filing, and the device type.
+    Also check for iFixit or other teardown coverage of the hardware."
+
+14. **Changelog / release-notes history** — "Find <product>'s changelog or
+    release-notes page. Summarize the last 5–10 dated entries: version or
+    date, platform affected (web/iOS/Android/desktop), and headline
+    changes."
+
+15. **Wayback availability** — "Check the Wayback Machine for snapshots of
+    <url>: report the earliest capture date, the most recent capture date,
+    and roughly how many captures exist."
+
+Two integrity rules for the revenue sweeps specifically: never let `agy`
+merge estimates from different sources into one number (each figure keeps
+its source; the report's revenue table does the comparison), and treat a
+funding round as a fact with a revenue *multiple* attached to it — the
+multiple is an assumption, so the output is a stage signal, not a figure.
+
 Adjust wording per product, but keep the role/question/sourcing/output-shape
 structure — that's what makes `agy`'s answers usable without a second pass
 of cleanup.

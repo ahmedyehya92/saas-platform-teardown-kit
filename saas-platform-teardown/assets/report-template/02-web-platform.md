@@ -2,9 +2,16 @@
 
 > Researched: <date>
 
-## Access method used
+## Access methods used
 
-Free trial / freemium tier / public demo / could not access beyond marketing pages — state which, and why.
+Which methods actually produced this section's claims, what each yielded,
+its evidence grade, and why it was chosen. This is how a reader weighs the
+rest of the section.
+
+| Method | What it yielded | Evidence grade | Why used |
+|---|---|---|---|
+| e.g. Free-trial signup (disposable identity) | live walk of all five journeys | live | self-serve trial existed |
+| e.g. Help-center articles | higher-tier admin screens | vendor-documentary | trial tier couldn't reach them |
 
 ## Navigation map
 
@@ -12,10 +19,18 @@ Free trial / freemium tier / public demo / could not access beyond marketing pag
 |---|---|---|
 | | | |
 
-## Core workflow
+## User journeys (web)
 
-Step-by-step narrative of the primary thing a user does in this product,
-end to end, as observed.
+Walked or reconstructed per the playbook; full schema, per-platform
+consolidation, personas, and the handoff map are in 05.
+
+| Journey | Persona | Evidence basis | Key friction observed |
+|---|---|---|---|
+| Onboarding / first-run | | walked live / reconstructed from <rung, source> | |
+| Core "aha" task end to end | | | |
+| Account & team setup | | | |
+| Churn-risk moment (plan limit / cancel flow) | | | |
+| Web-exclusive flow | | | |
 
 ## Feature inventory
 

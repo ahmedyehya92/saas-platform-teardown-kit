@@ -16,9 +16,23 @@ One paragraph: what the product does, who it's for, and its category peers.
 | Web app | Yes — <url> |
 | Native mobile app | Yes / No / Companion only — <store links> |
 | Native desktop app | Yes / No — <download links> |
+| Hardware integration | None found (checked: <where>) / Yes — <device families> |
 | Public API | Yes / No — <docs url> |
 | Pricing | <lowest paid tier> – <highest tier> |
-| Primary platform | Which platform is the real source of truth, per Phase 4 |
+| Estimated business scale | <range> — <method> (details in 08) |
+| Primary platform | Which platform is the real source of truth, per 07 |
+
+## How this was researched (access methods at a glance)
+
+| Platform | Access method(s) used | Evidence grade | Why |
+|---|---|---|---|
+| Web | e.g. free-trial signup (disposable identity) | live | self-serve trial existed |
+| Mobile | e.g. store listings + help center | vendor-documentary / third-party | no device available; product self-serve on mobile |
+| Desktop | e.g. installed and walked (free tier) | live | installer public |
+
+This table is the report's honesty layer: it says how much of what follows
+is verified truth versus secondhand reconstruction. Detail per platform
+lives in each platform file's "Access methods used" section.
 
 ## Contents
 
@@ -26,8 +40,10 @@ One paragraph: what the product does, who it's for, and its category peers.
 - [02 — Web Platform](02-web-platform.md)
 - [03 — Mobile Platform](03-mobile-platform.md)
 - [04 — Desktop Platform](04-desktop-platform.md)
-- [05 — Integration Architecture](05-integration-architecture.md)
-- [06 — Pricing & Sources](06-pricing-and-sources.md)
+- [05 — User Journeys](05-user-journeys.md)
+- [06 — Hardware Integrations](06-hardware-integrations.md)
+- [07 — Integration Architecture](07-integration-architecture.md)
+- [08 — Pricing, Revenue & Sources](08-pricing-revenue-sources.md)
 
 ## Biggest takeaways
 
