@@ -3,4 +3,6 @@
 .DS_Store
 .agy-out/
 /*-teardown/
+# the kit dir itself ends in "-teardown" — keep it tracked
+!saas-platform-teardown/
 node_modules/

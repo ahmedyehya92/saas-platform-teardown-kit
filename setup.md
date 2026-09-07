@@ -3,12 +3,15 @@
 ## MCP servers (user scope — the only scope that works everywhere)
 
 Required:
+
 - **Playwright MCP** — live browser control via accessibility snapshots (no
   vision model needed). Used for the web-platform audit.
+
   ```bash
   claude mcp add playwright -s user -- npx @playwright/mcp@latest
   claude mcp list | grep playwright   # must show: ✔ Connected
   ```
+
   GOTCHA (cost us a broken first run): dropping a server into
   `~/.claude/.mcp.json` does NOT register it — that file is only read when
   the session's working directory IS `~/.claude`. User scope lives inside
@@ -24,6 +27,7 @@ with `ln -sf ../lib/node_modules/agent-browser/bin/agent-browser.js
 "$(npm prefix -g)/bin/agent-browser"`.
 
 Strongly recommended:
+
 - **GitHub MCP** (or the `gh` CLI directly, see below) — for products whose
   desktop shell, SDKs, or changelogs live in a public repo.
 - **Fetch MCP** — only needed if your Claude Code build doesn't already have

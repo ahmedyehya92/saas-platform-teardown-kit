@@ -106,6 +106,6 @@ Move to Phase 1 once you can answer: does this product have a web app
 (virtually always yes), does it have native mobile apps (yes/no/unclear),
 does it have a native desktop app (yes/no/unclear), do you have a URL for
 each surface that does exist, how will each surface be accessed (trial /
-ladder / hard wall), and does it touch hardware (yes + touchpoints, or no
-+ where you checked). "Unclear" is fine to carry forward — Phases 2 and 3
+ladder / hard wall), and does it touch hardware (yes + touchpoints, or
+no (+ where you checked). "Unclear" is fine to carry forward — Phases 2 and 3
 exist partly to resolve it.

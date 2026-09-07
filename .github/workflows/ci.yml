@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Structural validation
+        run: bash scripts/validate-skill.sh
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # House style hard-wraps prose (~78 cols), uses <placeholder> tokens that
+      # are not HTML, and plain fences for directory trees — those rules are
+      # disabled in .markdownlint.json. examples/ is excluded: dated research
+      # snapshots, regenerated on minor-version milestones only.
+      - name: Markdown lint
+        run: npx --yes markdownlint-cli2 '**/*.md' '#node_modules' '#examples'
+
+      # Link check over the kit docs only. examples/ is excluded on purpose —
+      # dead links inside a dated example are findings about the product, not
+      # breakage of the kit.
+      - name: Link check (kit docs)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-retries 2
+            --accept 200..=299,403,429
+            --exclude 'example-saas\.com'
+            --exclude-path examples
+            README.md
+            setup.md
+            CHANGELOG.md
+            CONTRIBUTING.md
+            'saas-platform-teardown/**/*.md'
+            '.github/**/*.md'

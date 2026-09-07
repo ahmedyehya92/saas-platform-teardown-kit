@@ -40,10 +40,12 @@ empty. An absent section is a missing answer, not a negative finding.
 1. Copy `assets/report-template/*.md` into the output location and fill each
    placeholder — do not leave template scaffolding text in the final output.
 2. Every section file opens with:
+
    ```
    > Researched: <date>. Sources current as of this date; SaaS products
    > change frequently — verify anything decision-critical before acting on it.
    ```
+
 3. Every factual bullet ends with a confidence tag and, where applicable, a
    link: `— Confirmed (screenshot, in-app)`, `— Reported ([G2 review](url))`,
    `— Inferred (shared session cookie domain across web and desktop)`.

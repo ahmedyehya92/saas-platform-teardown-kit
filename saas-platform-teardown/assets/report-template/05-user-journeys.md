@@ -27,21 +27,25 @@ that is a finding too.
 ## 1. Onboarding / first-run
 
 ### Web
-- **Persona:** 
+
+- **Persona:**
 - **Entry point:** <exact URL / screen>
 - **Steps:** 1. … 2. … 3. …
-- **Decision points:** 
-- **Handoffs to another platform:** 
-- **Friction:** 
+- **Decision points:**
+- **Handoffs to another platform:**
+- **Friction:**
 - **Evidence:** walked live / reconstructed from <rung + source>
 
 ### iOS
+
 *(same fields)*
 
 ### Android
+
 *(same fields)*
 
 ### Desktop
+
 *(same fields)*
 
 ## 2. Core "aha" task end to end
