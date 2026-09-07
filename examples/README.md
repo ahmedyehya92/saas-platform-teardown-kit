@@ -10,6 +10,7 @@ the facts are demonstrations of it.
 | Example | Product / domain | Researched | Kit state | Engine · tier | Invocation |
 |---|---|---|---|---|---|
 | [Linear](linear-teardown/00-INDEX.md) | linear.app — project tracking, issues, cycles | 2026-09-07 (01:07–01:43 UTC) | `03f6d8a` (v1.0.0) | Engine A (built-in web search/fetch) · Tier 1 (Playwright MCP live audit) | `Do a full platform teardown of https://linear.app` |
+| [Oura](oura-teardown/00-INDEX.md) | ouraring.com — smart ring, hardware + subscription | 2026-09-07 (01:53–02:27 UTC) | `03f6d8a` (v1.0.0) | Engine A (built-in web search/fetch) · **Tier 0 (no browser, no account)** | `Do a full platform teardown of https://ouraring.com` |
 
 ## Linear — run notes
 
@@ -26,3 +27,22 @@ the facts are demonstrations of it.
   14 page fetches, ~63 browser actions).
 - `recon-dossier.md` is the per-fact working file the run appended to as
   it went — kept raw to show the kit's trail from sweep to report.
+
+## Oura — run notes
+
+- **The hardware showcase:** 9 FCC filings traced (grantee Oura Health
+  Oy, 2015–2026, rings + inductive chargers), teardown coverage, BLE /
+  inductive protocol detail, and a 4-platform pairing matrix — the
+  hardware playbook exercised end to end.
+- **The Tier 0 proof:** no browser, no account, no device — static
+  fetches, platform APIs (iTunes Lookup), HTTP headers/CSP, and public
+  records only. UI-behavior claims are `Reported` throughout, and the
+  report says so; where Tier 0 degraded an outcome (Play listings,
+  JS-rendered API docs, Apple release notes, archive.org), the report
+  logs it instead of papering over it.
+- **Claims:** ~177 confidence-tagged claims (~95 `Confirmed` / 59
+  `Reported` / 23 `Inferred`) plus 11 explicit not-found negatives.
+- **Effort:** ~34 minutes wall clock, ~83 tool calls (16 web searches,
+  36 page fetches, no browser).
+- Desktop is a verified absence: the per-OS table is honest N/A with the
+  four-way check that confirmed it.
