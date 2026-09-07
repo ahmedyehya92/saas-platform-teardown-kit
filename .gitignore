@@ -2,6 +2,7 @@
 .serena/
 .DS_Store
 .agy-out/
+.playwright-mcp/
 /*-teardown/
 # the kit dir itself ends in "-teardown" — keep it tracked
 !saas-platform-teardown/
