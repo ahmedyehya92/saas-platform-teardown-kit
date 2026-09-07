@@ -15,7 +15,7 @@ just because one tool is missing:
    (`browser_navigate`, `browser_snapshot`, `browser_network_requests`,
    `browser_take_screenshot`, ...). Verify presence before relying on it —
    if a session shows none, run `claude mcp list | grep playwright` to
-   check; it should report `✔ Connected` (it is registered at user scope).
+   check; it should report `✔ Connected`.
 2. **`agent-browser` CLI** (fallback, verified installed). Same job,
    shell-based: `agent-browser open <url>`, `agent-browser snapshot`,
    `agent-browser screenshot <path>`, `agent-browser eval '<js>'`.
@@ -84,6 +84,10 @@ and on every reconstructed journey:
 | third-party | review screenshots, forums, Product Hunt, Reddit | `Reported` (third-party) |
 | marketing-render | landing-page imagery | `Reported` (staged) — weakest; say so when it's all you have |
 
+These grades feed the claim-confidence mapping in SKILL.md's Evidence
+language section — a grade records how evidence was seen, a confidence
+label records what the claim is worth.
+
 The ladder is the sanctioned answer to "no credentials." It is not a
 license to bypass auth, paywalls, or bot protection — never do that, on any
 rung, for any platform.
@@ -120,8 +124,7 @@ rung, for any platform.
 
 The report's decision-grade core is journeys, not feature lists. Walk all
 five below on web; they are consolidated per platform in the report's
-`05-user-journeys.md` and synthesized cross-platform in Phase 4. (The old
-"core workflow" section of this playbook is now journey 2.)
+`05-user-journeys.md` and synthesized cross-platform in Phase 4.
 
 1. **Onboarding / first-run** — from signup to the first moment of value:
    everything the product makes you do before you get anything (email
