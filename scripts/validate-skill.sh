@@ -233,28 +233,22 @@ else
   bad "tracked IDE/agent/output paths found: $tracked_junk"
 fi
 
-# Machine-agnostic / migration-note string guards.
-#
-# ACTIVATION: these guards fail while the pre-engine-abstraction wording
-# ("on this machine" in setup.md and references/06, "registered at user
-# scope" and "(The old" in references/02) is still present. They switch on
-# in the same commit that scrubs the last of those strings (the Phase B
-# setup.md rewrite) — until then, uncommenting them would pin Gate A's CI
-# red for wording the kit rework is about to delete anyway.
-#
-# for file in $(git -C "$ROOT" ls-files '*.md' | grep -v '^examples/'); do
-#   [ -f "$ROOT/$file" ] || continue
-#   if grep -q 'on this machine' "$ROOT/$file"; then
-#     bad "$file contains machine-specific wording ('on this machine')"
-#   fi
-#   if grep -q 'registered at user scope' "$ROOT/$file"; then
-#     bad "$file contains scope-specific wording ('registered at user scope')"
-#   fi
-#   if grep -q '(The old' "$ROOT/$file"; then
-#     bad "$file contains an internal migration note ('(The old')"
-#   fi
-# done
-ok "tracked-path guards ran (string guards pending Phase B — see comment above)"
+# Machine-agnostic / migration-note guards. These strings were scrubbed
+# from the kit docs when the engine-agnostic rewrite landed; fail if they
+# return.
+for file in $(git -C "$ROOT" ls-files '*.md' | grep -v '^examples/'); do
+  [ -f "$ROOT/$file" ] || continue
+  if grep -q 'on this machine' "$ROOT/$file"; then
+    bad "$file contains machine-specific wording ('on this machine')"
+  fi
+  if grep -q 'registered at user scope' "$ROOT/$file"; then
+    bad "$file contains scope-specific wording ('registered at user scope')"
+  fi
+  if grep -q '(The old' "$ROOT/$file"; then
+    bad "$file contains an internal migration note ('(The old')"
+  fi
+done
+ok "string guards ran (machine-agnostic wording, no migration notes)"
 
 # ---------------------------------------------------------------- check 8
 printf '\n[8/9] mcp-config.example.json\n'

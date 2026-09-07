@@ -1,46 +1,69 @@
 # Setup
 
-## MCP servers (user scope — the only scope that works everywhere)
+The kit works with zero installs beyond Claude Code itself. Each tier adds
+capability; nothing is required to start, and every tier degrades
+gracefully when missing.
 
-Required:
+## Tier 0 — zero-install (the default)
 
-- **Playwright MCP** — live browser control via accessibility snapshots (no
-  vision model needed). Used for the web-platform audit.
+Copy the skill into your skills directory and restart Claude Code:
 
-  ```bash
-  claude mcp add playwright -s user -- npx @playwright/mcp@latest
-  claude mcp list | grep playwright   # must show: ✔ Connected
-  ```
+```bash
+# global (any project)
+cp -r saas-platform-teardown ~/.claude/skills/saas-platform-teardown
+# or project-local
+cp -r saas-platform-teardown <project>/.claude/skills/saas-platform-teardown
+```
 
-  GOTCHA (cost us a broken first run): dropping a server into
-  `~/.claude/.mcp.json` does NOT register it — that file is only read when
-  the session's working directory IS `~/.claude`. User scope lives inside
-  `~/.claude.json` and is managed by `claude mcp add -s user`. Also note
-  MCP servers load at session START — a server added mid-session won't
+Done. Research runs on the built-in web search/fetch tools (Engine A in
+`references/06-research-sweeps.md`); the web audit is limited to static
+fetches of public pages — no live app exploration — so UI-behavior claims
+stay `Reported` instead of `Confirmed`.
+
+## Tier 1 — live browser (recommended)
+
+Playwright MCP gives the web-platform audit live DOM access: real in-app
+journeys, authenticated-state screens, `Confirmed` UI claims.
+
+```bash
+claude mcp add playwright -s user -- npx @playwright/mcp@latest
+claude mcp list | grep playwright   # must show: ✔ Connected
+```
+
+Or merge `mcp-config.example.json` (standard `mcpServers` object) into a
+project `.mcp.json`. Scope notes that have bitten people:
+
+- Register at **user scope** (`-s user`) to have the server available in
+  every project. Dropping a server into `~/.claude/.mcp.json` does NOT
+  register it — that file is only read when the session's working
+  directory IS `~/.claude`.
+- MCP servers load at session **start** — a server added mid-session won't
   appear until the next one.
 
-Browser fallback (strongly recommended): **`agent-browser` CLI** —
-`npm install -g agent-browser`. The skill falls back to it automatically
-when the MCP server isn't present. If `command -v agent-browser` fails
-while `npm ls -g` shows it installed, the nvm-bin symlink dangles — fix
-with `ln -sf ../lib/node_modules/agent-browser/bin/agent-browser.js
-"$(npm prefix -g)/bin/agent-browser"`.
+Optional, same tier: `gh` (useful when the product has public repos —
+desktop shells, SDKs, changelogs), `curl` (HEAD requests against download
+links and update manifests), `jq` (parsing any JSON API responses). All
+three are convenience, not requirement — the built-in tools cover their
+cases more slowly.
 
-Strongly recommended:
+Browser fallback: the `agent-browser` CLI (`npm install -g agent-browser`)
+is used automatically when the MCP server isn't present. If
+`command -v agent-browser` fails while `npm ls -g` shows it installed, the
+nvm-bin symlink dangles — fix with
+`ln -sf ../lib/node_modules/agent-browser/bin/agent-browser.js "$(npm prefix -g)/bin/agent-browser"`.
 
-- **GitHub MCP** (or the `gh` CLI directly, see below) — for products whose
-  desktop shell, SDKs, or changelogs live in a public repo.
-- **Fetch MCP** — only needed if your Claude Code build doesn't already have
-  `web_fetch`/`web_search` built in.
+## Tier 2 — parallel research power (optional)
 
-## agy permissions (headless research mode — REQUIRED, not optional)
+`agy` (Antigravity CLI) runs the research sweeps as parallel headless shell
+jobs instead of sequentially through the built-in tools. Install:
 
-Research prompts make `agy` call its own `search_web` / `read_url` tools,
-and headless mode auto-DENIES any tool it can't prompt for — the run then
-finishes with `status: SUCCESS` and an EMPTY response (sneaky failure).
+```bash
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+```
 
-Fix (surgical, already applied on this machine): add to
-`~/.gemini/antigravity-cli/settings.json` →
+`agy` needs `jq` for output parsing, and headless mode auto-denies tool
+permissions unless allow-listed. Add to
+`~/.gemini/antigravity-cli/settings.json`:
 
 ```json
 "permissions": { "allow": ["search_web", "read_url(*)", "read_url_content(*)", "read_resource(*)"] }
@@ -51,40 +74,46 @@ GOTCHA: the permission name is `read_url` — the tool is named
 fallback on any machine: append `--dangerously-skip-permissions` to the
 agy invocation (auto-approves ALL its tools — see the playbook's caution).
 
-## CLIs (must be on `$PATH`)
-
-| CLI | Purpose | Install |
-|---|---|---|
-| `agy` (Antigravity CLI) | Gemini-grounded web research, run headless and in parallel from bash | `curl -fsSL https://antigravity.google/cli/install.sh \| bash` |
-| `gh` (GitHub CLI) | Release notes, changelogs, open-source desktop shells, org repos | `https://cli.github.com` |
-| `curl` | HEAD requests against download links, update manifests, API probing | usually preinstalled |
-| `jq` | Parsing `agy --output-format stream-json` output and any JSON API responses | package manager |
-| A Wappalyzer-class tech detector (CLI or MCP) | Tech-stack fingerprinting of the marketing site and app subdomain | any current OSS "Wappalyzer alternative" CLI/MCP — check `npx` registry or `pip` at run time, since exact package names churn; do not assume a specific one is still current |
-| `appstore-review-cli` (or equivalent) | Structured App Store / Google Play listing + review data without needing developer accounts | check current OSS options — this space moves fast, confirm the tool is still maintained before relying on it |
-
-No additional CLIs are needed for the decision-grade methodology: revenue
-estimator / FCC-filing / Wayback / traffic-proxy lookups all run through
-`agy` or the built-in web search/fetch tools, and desktop installer sizes
-come from `curl -sI` HEAD requests (curl is already listed above). Mobile
-release data deliberately stops at store-listing metadata — the kit never
-extracts APK/IPA binaries, so no extraction tooling is wanted.
-
-## Verify before running the skill
+Verify (last verified against agy 1.1.27, 2026-09 — the CLI self-updates,
+so flag and model drift is possible):
 
 ```bash
 agy --version
-gh --version
-jq --version
-# full end-to-end agy check (verified pattern on agy 1.1.23 — note:
-# no --non-interactive flag; gemini-3.8-flash requires --effort):
 mkdir -p .agy-out && agy -p "Reply with the single word: pong" \
   --output-format stream-json --model gemini-3.8-flash --effort medium \
   > .agy-out/ping.jsonl
 jq -r 'select(.event=="result") | .result.status' .agy-out/ping.jsonl  # SUCCESS
 ```
 
-If `agy` is unavailable, the skill falls back to the built-in `web_search`/
-`web_fetch` tools — slower and less parallel, but the pipeline still works.
-If Playwright MCP is unavailable, the web-platform audit degrades to
-static `web_fetch` inspection of public pages only (no live app exploration,
-no authenticated-state screens).
+Note the pairing: no `--non-interactive` flag exists (`-p` is already
+non-interactive), and `--model` requires a paired `--effort`. If the model
+name 404s, run `agy models` and pick the current flash-family entry.
+
+## Optional extras (never assumed)
+
+- **Wappalyzer-class tech detector** (CLI or MCP) — faster stack
+  fingerprinting of the marketing site and app subdomain. Exact package
+  names churn; check the current OSS options at run time and confirm the
+  tool is maintained before relying on it. The kit never assumes one is
+  present.
+- **App-store listing/review CLI** — structured store data without
+  developer accounts. Same caveat: this space moves fast; verify before
+  relying. Without it, the kit reads store listings via web fetch, which
+  is the default path and is sufficient.
+
+No other CLIs are needed: revenue-estimator, FCC-filing, Wayback, and
+traffic-proxy lookups all run through the research sweeps (either engine),
+and desktop installer sizes come from `curl -sI` HEAD requests. Mobile
+release data deliberately stops at store-listing metadata — the kit never
+extracts APK/IPA binaries, so no extraction tooling is wanted.
+
+## What degrades how
+
+No `agy` (Tier 2 missing): research sweeps run on the built-in web
+search/fetch tools — slower and less parallel, but the pipeline still
+works and the report is not thinner on sourced claims.
+
+No Playwright MCP (Tier 1 missing): the web-platform audit degrades to
+static `web_fetch` inspection of public pages only — no live app
+exploration, no authenticated-state screens, and UI-behavior claims stay
+`Reported`.
