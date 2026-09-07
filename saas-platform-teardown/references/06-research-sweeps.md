@@ -219,6 +219,18 @@ in order of preference:
    allow-rules are missing and never feed untrusted page content into agy
    prompts, since injected instructions could drive those tools.
 
+A third signature, prompt-shaped rather than permission-shaped: if stderr
+quotes the `command` permission, the sweep tried to verify a URL by
+shelling out (curl/HEAD) and was auto-denied — the retry is
+deterministically empty. Sweeps should report URLs *as listed on the
+page*, not probe them; verification by HEAD request belongs to the
+platform-audit phases. Telling the model not to probe helps but is not
+reliable (verified 2026-09: the desktop-distribution sweep kept reaching
+for the shell even when told not to). The two dependable escapes: a
+narrow `command` allow-rule (grants agy terminal execution — scope it
+deliberately), or the documented per-sweep fallback below — rerun that
+one question on the built-in search tools.
+
 Run several sweeps as background bash jobs in parallel (`&` + `wait`, or
 separate tool calls) rather than one at a time — this is the whole point
 of shelling out to a second agent.
