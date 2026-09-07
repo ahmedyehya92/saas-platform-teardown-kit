@@ -1,0 +1,6 @@
+.idea/
+.serena/
+.DS_Store
+.agy-out/
+/*-teardown/
+node_modules/
