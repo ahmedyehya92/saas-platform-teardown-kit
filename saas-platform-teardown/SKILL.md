@@ -27,12 +27,15 @@ Confirm what's available and degrade gracefully rather than stalling:
       Same audit capability, shell-driven.
    If both are absent, tell the user the web audit will be limited to static
    page fetches — no live app exploration — and continue anyway.
-2. Check whether `agy` is on `$PATH` (`agy --version` via bash). If present,
-   use it per `references/06-agy-search-playbook.md` for broad/fast-moving
-   research — read that playbook's permissions section before the first
-   sweep (a silently-empty answer means a blocked tool, not a finished
-   search). If absent, fall back to the built-in web search tool for the
-   same questions — slower, sequential, but functionally equivalent.
+2. Check whether `agy` is on `$PATH` (`command -v agy` via bash). If
+   present, use Engine B per `references/06-research-sweeps.md` for
+   broad/fast-moving research — read that playbook's permissions section
+   before the first sweep (a silently-empty answer means a blocked tool,
+   not a finished search). If absent — the common case — run the same
+   sweeps via Engine A (the built-in web search/fetch tools) per the same
+   playbook: slower, sequential, functionally equivalent. Either way,
+   follow that playbook's engine-pick rule and record the engine used in
+   the report's methodology section.
 3. Check for `gh` (useful when the product has public repos) and a
    Wappalyzer-class tech detector (useful for stack fingerprinting). Neither
    is required to proceed.
@@ -54,11 +57,14 @@ this skill was designed to be used.
 | 2 | Document the mobile apps — store artifacts, journeys — or confirm none exist | `references/03-mobile-platform-audit.md` |
 | 3 | Document the desktop app — artifacts per OS/arch, journeys — or confirm none exists | `references/04-desktop-platform-audit.md` |
 | 4 | Synthesize how the platforms share data/accounts/notifications, map each integration's business objective, and consolidate journey handoffs + personas | `references/05-integration-architecture.md` |
-| 5 (parallel/ongoing) | Fan out broad research questions, including revenue/business-scale sweeps | `references/06-agy-search-playbook.md` |
+| 5 (parallel/ongoing) | Fan out broad research questions, including revenue/business-scale sweeps | `references/06-research-sweeps.md` |
 | 6 | Assemble and write the final report | `references/07-report-assembly.md` |
 | conditional | Hardware deep-dive — load ONLY if Phase 0 (or a store-listing permission) finds a hardware touchpoint | `references/08-hardware-integrations.md` |
 
-Phase 5 isn't sequential — dispatch `agy` sweeps as soon as Phase 0 gives you
+(Numbering note: reference files are numbered 1–8 against the phases 0–7
+they serve — the table above is authoritative.)
+
+Phase 5 isn't sequential — dispatch research sweeps (either engine) as soon as Phase 0 gives you
 concrete questions (company facts, funding/revenue signals, app store
 presence, integrations directory, pricing), so results are ready by the time
 Phases 1–4 need them instead of blocking on them. The hardware playbook is
@@ -114,6 +120,24 @@ user-journeys file during Phase 4.
   record the research date, because "current" claims decay fast.
 - **Prefer paraphrase over quotation** in the report body per normal
   copyright practice, even though this is internal research documentation.
+
+## Evidence language
+
+The report uses two orthogonal scales. Do not conflate them:
+
+- **Claim confidence** grades *the claim*: `Confirmed` (directly observed —
+  screenshot, DOM, API response, official doc), `Reported` (a secondhand
+  source states it, with the source cited), `Inferred` (deduced, with the
+  reasoning chain shown).
+- **Access-method grade** grades *how the evidence was seen*: `live` /
+  `vendor-documentary` / `third-party` / `marketing-render`. The ladder and
+  its grades are defined in `references/02-web-platform-audit.md`.
+
+Mapping between them: `live` evidence can support `Confirmed`. The other
+three access methods support a claim at most at `Reported` — vendor docs
+say, they don't show; third-party and marketing-render material says
+somebody says. A claim with no access method behind it is `Inferred`, with
+the reasoning chain shown.
 
 ## Definition of done
 
