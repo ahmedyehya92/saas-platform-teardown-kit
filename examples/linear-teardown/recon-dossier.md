@@ -112,7 +112,7 @@ Signup requirements observed at triage: email-only self-serve (no card, no ID) â
 
 ## 9. Phase 1-5 sweep results (appended as gathered; dates 2026-09-07)
 
-### Phase 1 live-web findings (Playwright, walked with disposable account teardownlinearay9v4x2@uberip.com, workspace `teardown-example-audit`, team key TEA)
+### Phase 1 live-web findings (Playwright, walked with disposable account <temp-mail burner address, redacted pre-publication>, workspace `teardown-example-audit`, team key TEA)
 - {Signup offers exactly three methods: Continue with Google / email / SAML SSO, https://linear.app/signup, Confirmed (live DOM)}
 - {Email signup = passwordless magic link ("What's your email address?" â†’ link emailed); sender is `noreply-1c89f5e93bc84940516b2375@linear.app` via Amazon SES, Confirmed (live + inbox)}
 - {Workspace creation form: Name, URL slug (linear.app/<slug>), Region selector defaulting to "European Union", Confirmed (live)}
