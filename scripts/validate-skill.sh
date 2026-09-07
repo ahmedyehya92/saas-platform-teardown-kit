@@ -111,7 +111,8 @@ fi
 
 # ---------------------------------------------------------------- check 3
 printf '\n[3/9] cited references/NN-*.md paths resolve\n'
-scan_list="$(git -C "$ROOT" ls-files '*.md' | grep -v '^examples/' || true)"
+# CHANGELOG.md is exempt: it documents history, including old filenames.
+scan_list="$(git -C "$ROOT" ls-files '*.md' | grep -v '^examples/' | grep -v '^CHANGELOG.md$' || true)"
 ref_hits=0
 ref_broken=0
 if [ -n "$scan_list" ]; then
@@ -235,8 +236,9 @@ fi
 
 # Machine-agnostic / migration-note guards. These strings were scrubbed
 # from the kit docs when the engine-agnostic rewrite landed; fail if they
-# return.
-for file in $(git -C "$ROOT" ls-files '*.md' | grep -v '^examples/'); do
+# return. CHANGELOG.md is exempt — it quotes the removed strings to
+# document their removal.
+for file in $(git -C "$ROOT" ls-files '*.md' | grep -v '^examples/' | grep -v '^CHANGELOG.md$'); do
   [ -f "$ROOT/$file" ] || continue
   if grep -q 'on this machine' "$ROOT/$file"; then
     bad "$file contains machine-specific wording ('on this machine')"
