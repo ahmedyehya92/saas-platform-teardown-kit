@@ -136,8 +136,12 @@ The report uses two orthogonal scales. Do not conflate them:
 Mapping between them: `live` evidence can support `Confirmed`. The other
 three access methods support a claim at most at `Reported` — vendor docs
 say, they don't show; third-party and marketing-render material says
-somebody says. A claim with no access method behind it is `Inferred`, with
-the reasoning chain shown.
+somebody says. One reconciliation for fetched vendor-documentary content
+(so two runs resolve it the same way): the fetch is a direct observation
+of what the source *states* — "the pricing page lists X" can be
+`Confirmed` — while the product-*behavior* the prose describes tops out
+at `Reported (vendor-authored)`. A claim with no access method behind it
+is `Inferred`, with the reasoning chain shown.
 
 ## Definition of done
 

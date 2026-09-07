@@ -11,7 +11,8 @@ text on the open web, not for live in-app behavior.
 ## Picking the engine (once, at Phase-5 dispatch)
 
 Run `command -v agy` (bash) exactly once, when Phase 0 has produced the
-concrete questions:
+concrete questions — unless the run's scope already excludes `agy`, in
+which case skip the check and record the exclusion:
 
 - **Absent → Engine A (built-in web search/fetch). This is the default
   path and the normal case — not a degraded mode.** Do not warn, do not
@@ -168,10 +169,18 @@ and few pinned sources. Instead:
   URL, confidence) rather than holding facts in working memory for the
   whole run.
 - **Wayback exception (sweep 15):** some fetchers refuse
-  `web.archive.org` itself. The workaround is the availability API —
-  `https://archive.org/wayback/available?url=<url>` — plus fetching a
-  raw snapshot URL it returns; that yields earliest/recent capture dates
-  and the archived page content without touching the blocked host.
+  `web.archive.org` itself. The availability API —
+  `https://archive.org/wayback/available?url=<url>` — answers through
+  the unblocked host and yields a current snapshot URL; if the fetcher
+  refuses raw snapshot URLs too, record what the API gives and flag
+  earliest-capture date as unobtainable under this engine rather than
+  guessing.
+- **Client-rendered pages read as empty.** JS-rendered sites — Swagger/
+  OpenAPI UIs, Play Store listings, some docs portals — return shell
+  markup with no content to a static fetch. Don't report the sweep as
+  failed; name a static-readable fallback (third-party client docs,
+  status-page component lists, GitHub SDK repos, platform APIs like
+  iTunes Lookup) and mark what that downgrades.
 
 ## Engine B — `agy` (optional power path)
 
