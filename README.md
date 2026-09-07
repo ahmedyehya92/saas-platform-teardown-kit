@@ -2,7 +2,7 @@
 <!-- markdownlint-disable MD041 -->
 <div align="center">
 
-<img src="assets/logo.svg" alt="SaaS Platform Teardown Kit logo — a magnifying lens inspecting an exploded stack of web, desktop, and mobile app layers" width="132"/>
+<img src="assets/logo.svg" alt="SaaS Platform Teardown Kit logo — a magnifying lens examining a sliced-open app window, lid pried off, revealing a hidden gear" width="132"/>
 
 # SaaS Platform Teardown Kit
 

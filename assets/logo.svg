@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="logoTitle">
-  <title id="logoTitle">SaaS Platform Teardown Kit — a magnifying lens inspecting an exploded stack of web, desktop, and mobile app layers</title>
+  <title id="logoTitle">SaaS Platform Teardown Kit — a magnifying lens examining a sliced-open app window, lid pried off and cut lines showing</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#4338CA"/>
@@ -15,13 +15,13 @@
       <stop offset="1" stop-color="#F09074" stop-opacity="0"/>
     </radialGradient>
     <clipPath id="lens">
-      <circle cx="318" cy="224" r="112"/>
+      <circle cx="340" cy="222" r="102"/>
     </clipPath>
   </defs>
 
   <!-- app-icon ground -->
   <rect width="512" height="512" rx="116" fill="url(#bg)"/>
-  <circle cx="256" cy="246" r="210" fill="url(#glow)"/>
+  <circle cx="240" cy="240" r="210" fill="url(#glow)"/>
   <circle cx="110" cy="92" r="130" fill="url(#glowCoral)"/>
 
   <!-- sparkles -->
@@ -29,31 +29,57 @@
   <path d="M444,99 Q444,110 455,110 Q444,110 444,121 Q444,110 433,110 Q444,110 444,99 Z" fill="#FFFFFF" opacity="0.85"/>
   <path d="M86,401 Q86,414 99,414 Q86,414 86,427 Q86,414 73,414 Q86,414 86,401 Z" fill="#FFFFFF" opacity="0.45"/>
 
-  <!-- exploded platform stack: web / desktop / mobile -->
-  <g>
-    <rect x="136" y="118" width="240" height="58" rx="14" fill="#818CF8"/>
-    <rect x="168" y="141" width="76" height="12" rx="6" fill="#FFFFFF" opacity="0.92"/>
-    <rect x="136" y="209" width="240" height="58" rx="14" fill="#6366F1"/>
-    <rect x="168" y="232" width="76" height="12" rx="6" fill="#FFFFFF" opacity="0.92"/>
-    <rect x="136" y="300" width="240" height="58" rx="14" fill="#4F46E5"/>
-    <rect x="168" y="323" width="76" height="12" rx="6" fill="#FFFFFF" opacity="0.92"/>
+  <!-- the SaaS app window, sliced open -->
+  <!-- lid, pried off at an angle -->
+  <g transform="rotate(-8 208 122)">
+    <rect x="96" y="95" width="224" height="54" rx="12" fill="#818CF8"/>
+    <circle cx="122" cy="122" r="5.5" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="140" cy="122" r="5.5" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="158" cy="122" r="5.5" fill="#FFFFFF" opacity="0.95"/>
   </g>
+  <!-- cut line 1 -->
+  <line x1="112" y1="168" x2="304" y2="168" stroke="#EEF2FF" stroke-width="3" stroke-dasharray="12 9" stroke-linecap="round" opacity="0.55"/>
+  <!-- middle section -->
+  <rect x="96" y="182" width="224" height="74" rx="12" fill="#6366F1"/>
+  <rect x="118" y="202" width="104" height="11" rx="5.5" fill="#FFFFFF" opacity="0.92"/>
+  <rect x="118" y="226" width="64" height="11" rx="5.5" fill="#FFFFFF" opacity="0.92"/>
+  <!-- cut line 2 -->
+  <line x1="112" y1="272" x2="304" y2="272" stroke="#EEF2FF" stroke-width="3" stroke-dasharray="12 9" stroke-linecap="round" opacity="0.55"/>
+  <!-- bottom section -->
+  <rect x="96" y="288" width="224" height="64" rx="12" fill="#4F46E5"/>
+  <rect x="118" y="308" width="88" height="11" rx="5.5" fill="#FFFFFF" opacity="0.92"/>
+  <rect x="272" y="302" width="20" height="20" rx="6" fill="#FFFFFF" opacity="0.95"/>
+  <!-- dropped screws -->
+  <circle cx="120" cy="374" r="4.5" fill="#F09074"/>
+  <circle cx="140" cy="382" r="4.5" fill="#F09074"/>
 
-  <!-- layers seen through the lens: brighter, inspected -->
+  <!-- magnifying lens examining the exposed internals -->
   <g clip-path="url(#lens)">
-    <rect x="136" y="118" width="240" height="58" rx="14" fill="#C7D2FE"/>
-    <rect x="168" y="141" width="76" height="12" rx="6" fill="#FFFFFF"/>
-    <rect x="136" y="209" width="240" height="58" rx="14" fill="#A5B4FC"/>
-    <rect x="168" y="232" width="76" height="12" rx="6" fill="#FFFFFF"/>
-    <rect x="136" y="300" width="240" height="58" rx="14" fill="#818CF8"/>
-    <rect x="168" y="323" width="76" height="12" rx="6" fill="#FFFFFF"/>
+    <rect x="96" y="182" width="224" height="74" rx="12" fill="#A5B4FC"/>
+    <rect x="118" y="202" width="104" height="11" rx="5.5" fill="#FFFFFF"/>
+    <rect x="118" y="226" width="64" height="11" rx="5.5" fill="#FFFFFF"/>
+    <rect x="96" y="288" width="224" height="64" rx="12" fill="#818CF8"/>
+    <rect x="118" y="308" width="88" height="11" rx="5.5" fill="#FFFFFF"/>
+    <rect x="272" y="302" width="20" height="20" rx="6" fill="#FFFFFF"/>
+    <g transform="translate(292 220)">
+      <g fill="#F09074">
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(45)"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(90)"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(135)"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(180)"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(225)"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(270)"/>
+        <rect x="-3.5" y="-20" width="7" height="9" rx="2.5" transform="rotate(315)"/>
+        <circle r="13"/>
+      </g>
+      <circle r="5" fill="#312E81"/>
+    </g>
   </g>
-
-  <!-- magnifying lens + coral handle -->
-  <circle cx="318" cy="224" r="112" fill="#FFFFFF" opacity="0.07"/>
-  <line x1="394" y1="300" x2="464" y2="370" stroke="#E8846B" stroke-width="34" stroke-linecap="round"/>
-  <line x1="402" y1="308" x2="446" y2="352" stroke="#F4A78C" stroke-width="10" stroke-linecap="round"/>
-  <circle cx="318" cy="224" r="112" fill="none" stroke="#EEF2FF" stroke-width="18"/>
+  <circle cx="340" cy="222" r="102" fill="#FFFFFF" opacity="0.07"/>
+  <line x1="414" y1="296" x2="462" y2="344" stroke="#E8846B" stroke-width="32" stroke-linecap="round"/>
+  <line x1="422" y1="304" x2="444" y2="326" stroke="#F4A78C" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="340" cy="222" r="102" fill="none" stroke="#EEF2FF" stroke-width="16"/>
 
   <!-- inner bevel -->
   <rect x="10" y="10" width="492" height="492" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="2"/>
