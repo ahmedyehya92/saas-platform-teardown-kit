@@ -1,100 +1,178 @@
 # SaaS Platform Teardown Kit — for Claude Code
 
-A drop-in research system that turns **one landing page URL** into a
-structured, multi-file Markdown teardown of a SaaS product: what it does,
-every feature and user journey on every platform (web / desktop / mobile),
-how those platforms integrate — and the business logic behind those
-choices — plus hardware coverage, business-scale/revenue signals, and
-concrete release artifacts per platform.
+**One SaaS URL in, a due-diligence-grade teardown out. A Claude Code skill.**
 
-This is not a single prompt. It's a **skill package** — a primary orchestrator
-skill plus phase-specific reference playbooks — designed around how Claude
-Code's Skills system actually works: metadata is loaded at startup, the
-SKILL.md body loads when the task matches, and everything else (the
-`references/` playbooks, the `assets/` templates) loads only when the
-orchestrator explicitly points Claude at it. That's what makes this reliable
-instead of a wall of instructions Claude has to hold in its head at once.
+Give it a landing page and it produces a structured, multi-file Markdown
+teardown of the whole product: what it does, every feature and user journey
+on every platform (web / desktop / mobile), how those platforms integrate —
+and the business logic behind those choices — plus hardware coverage,
+business-scale/revenue signals, and concrete release artifacts per platform.
 
-## What's in this kit
+Every claim is sourced, dated, and confidence-tagged, so the report tells
+you not just what the product looks like but how much of that you should
+believe.
+
+[![CI](https://github.com/ahmedyehya92/saas-platform-teardown-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmedyehya92/saas-platform-teardown-kit/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Claude Code skill](https://img.shields.io/badge/Claude_Code-skill-D97757)](https://claude.com/claude-code)
+[![GitHub stars](https://img.shields.io/github/stars/ahmedyehya92/saas-platform-teardown-kit?style=social)](https://github.com/ahmedyehya92/saas-platform-teardown-kit/stargazers)
+
+## What you get
+
+Nine linked report files per teardown:
 
 ```
-saas-platform-teardown/
-├── SKILL.md                          # orchestrator — the entry point
-├── references/
-│   ├── 01-intake-and-recon.md        # URL → surface map + access plan + hardware check
-│   ├── 02-web-platform-audit.md      # live web audit + CANONICAL no-credential access ladder + journey schema
-│   ├── 03-mobile-platform-audit.md   # store artifacts (no binary extraction), mobile journeys
-│   ├── 04-desktop-platform-audit.md  # per-OS/arch release artifacts, version history, desktop journeys
-│   ├── 05-integration-architecture.md# platform synthesis + business-objective mapping
-│   ├── 06-research-sweeps.md         # prompt-engineered research sweeps incl. revenue
-│   ├── 07-report-assembly.md         # how to write the final MD output
-│   └── 08-hardware-integrations.md   # CONDITIONAL — loaded only if hardware is found
-└── assets/report-template/           # the skeleton the final report is built from
-    ├── 00-INDEX.md                   # executive summary + access-methods summary
-    ├── 01-overview-and-recon.md      # + complete verified link inventory
-    ├── 02-web-platform.md            # + access log, journeys
-    ├── 03-mobile-platform.md         # + store artifact tables, access log, journeys
-    ├── 04-desktop-platform.md        # + per-OS/arch artifact table, version history
-    ├── 05-user-journeys.md           # all platforms × 5 journeys, personas, handoff map
-    ├── 06-hardware-integrations.md   # device families — or the explicit none-finding
-    ├── 07-integration-architecture.md# + business-objective map
-    └── 08-pricing-revenue-sources.md # + revenue estimates with method per figure
-
-mcp-config.example.json               # MCP servers this skill expects
-setup.md                              # CLI installs + verification steps
-CHANGELOG.md                          # what changed in this kit, and why
+<product>-teardown/
+├── 00-INDEX.md                    # executive summary + access-methods summary
+├── 01-overview-and-recon.md       # + complete verified link inventory
+├── 02-web-platform.md             # + access log, journeys
+├── 03-mobile-platform.md          # + store artifact tables, access log, journeys
+├── 04-desktop-platform.md         # + per-OS/arch artifact table, version history
+├── 05-user-journeys.md            # all platforms × 5 journeys, personas, handoff map
+├── 06-hardware-integrations.md    # device families — or the explicit none-finding
+├── 07-integration-architecture.md # + business-objective map
+└── 08-pricing-revenue-sources.md  # + revenue estimates with method per figure
 ```
+
+## Example teardowns
+
+| Product | Platforms covered | Engines / tier | Researched |
+|---|---|---|---|
+| Linear | web · iOS · Android · macOS · Windows | Engine A (built-in search) · Tier 1 | landing in v1.0.0 |
+| Oura | hardware · iOS · Android · web dashboard | Engine A (built-in search) · Tier 0 | landing in v1.0.0 |
+
+Full teardowns generated by running this kit, committed as point-in-time
+research snapshots: SaaS products ship weekly — treat the specifics as
+dated; the methodology is the durable artifact. Links land with v1.0.0.
+
+## Requirements
+
+Nothing is required to start. Each tier adds capability; every tier
+degrades gracefully when missing.
+
+| Tier | You need | It unlocks | Without it |
+|---|---|---|---|
+| **0 — zero-install** (default) | Claude Code | Full teardown via the built-in web search/fetch tools; static web audit | — this is the floor |
+| **1 — live browser** (recommended) | Playwright MCP — `claude mcp add playwright -s user -- npx @playwright/mcp@latest` | Live in-app exploration, authenticated-state screens, UI claims upgraded to `Confirmed` | Web audit limited to static fetches; UI claims stay `Reported` |
+| **2 — parallel research** (optional) | [`agy` CLI](https://antigravity.google/cli/install.sh) + `jq` | The 15 research sweeps fanned out as parallel headless jobs | Same sweeps run sequentially on built-in search — slower, same depth |
 
 ## Install
 
-1. Copy `saas-platform-teardown/` into `~/.claude/skills/saas-platform-teardown/`
-   (global) or `<project>/.claude/skills/saas-platform-teardown/` (project-local).
-2. Merge `mcp-config.example.json` into your Claude Code MCP config
-   (`claude mcp add ...` or your `.mcp.json`).
-3. Follow `setup.md` to install the CLIs the skill shells out to.
-4. Restart Claude Code (skills and MCP servers are only picked up at session
-   start).
+Tier 0 is one step:
+
+```bash
+cp -r saas-platform-teardown ~/.claude/skills/saas-platform-teardown
+```
+
+Then restart Claude Code (skills and MCP servers load at session start).
+For Tier 1/2 setup — Playwright MCP registration, `agy` permissions, and
+the verification snippets — see [setup.md](setup.md).
 
 ## Run it
 
 ```
-> Do a full platform teardown of https://example-saas.com
+> Do a full platform teardown of https://linear.app
 ```
 
-or name it explicitly:
+or name the skill explicitly:
 
 ```
-> Use the saas-platform-teardown skill on https://example-saas.com
+> Use the saas-platform-teardown skill on https://linear.app
 ```
 
-Claude Code will match the request to `SKILL.md`'s description, then work
-phase by phase through the reference playbooks, producing a Markdown report
-folder under `./<product-slug>-teardown/` in your working directory.
+Claude Code matches the request to `SKILL.md`'s description, works phase
+by phase through the reference playbooks, and writes the report folder
+under `./<product-slug>-teardown/` in your working directory.
 
-## Design principles behind this kit
+## How it works
 
-- **One skill, one job, progressive disclosure.** The orchestrator is short.
-  Depth lives in `references/`, loaded on demand — this is the documented
+This is not a single prompt. It's a **skill package** — a short orchestrator
+(`SKILL.md`) plus phase-specific reference playbooks, designed around how
+Claude Code's Skills system actually works: metadata loads at startup, the
+orchestrator loads when the task matches, and each playbook loads only when
+the orchestrator points at it. That progressive disclosure is what makes it
+reliable instead of a wall of instructions held in one context window.
+
+The design principles:
+
+- **One skill, one job, progressive disclosure.** The orchestrator is
+  short. Depth lives in `references/`, loaded on demand — the documented
   Claude Code pattern, not an improvised one.
-- **Tools do what they're good at.** Live DOM/UI truth comes from Playwright
-  MCP, not from guessing what a page looks like. Broad web knowledge and
-  fast-changing facts (app store data, pricing, revenue estimators,
-  integrations directories) are swept with `agy` because it's
-  Gemini-grounded and cheap to fan out in parallel from the shell. Claude
-  Code does the synthesis, verification, and writing — the part that needs
-  judgment.
+- **Tools do what they're good at.** Live DOM/UI truth comes from the
+  configured browser (Playwright MCP when present), not from guessing what
+  a page looks like. Broad, fast-moving facts (app store data, pricing,
+  revenue estimators, integration directories) are swept by a dedicated
+  research pass — fanned out in parallel through `agy` when installed, run
+  sequentially on the built-in search otherwise. Claude Code does the
+  synthesis, verification, and writing — the part that needs judgment.
 - **Decision-grade, not feature-list-grade.** A teardown answers "is this
   product a real threat?": full user journeys per platform, business
   objectives behind every integration, explicit hardware answers,
   revenue/scale signals with methods, and release artifacts per platform —
   not just "an app exists."
-- **No credentials is a methodology, not a dead end.** Self-serve trials are
-  used when offered; genuinely gated products get the documented
+- **No credentials is a methodology, not a dead end.** Self-serve trials
+  are used when offered; genuinely gated products get the documented
   no-credential ladder (demo videos, help-center screenshots, reviews,
   Wayback, API docs) — and every platform section logs which methods
   produced its claims, so the reader can weigh verified truth against
   secondhand reconstruction.
 - **Every claim is sourced or flagged.** The report template forces a
   Confirmed/Reported/Inferred distinction and a source link per section,
-  because SaaS products change weekly and an undated, unsourced teardown is
-  worthless in three months.
+  because SaaS products change weekly and an undated, unsourced teardown
+  is worthless in three months.
+
+## FAQ
+
+**Is this legal / ethical to run?**
+The operating rules hard-code the answer. It uses only sanctioned access:
+self-serve free trials or freemium tiers with a disposable identity, public
+pages, public store listings, and public docs. It never provides real
+payment info, never scrapes behind a paywall, never bypasses auth or bot
+protection, and stops at any payment-or-ID-verification wall. Mobile stops
+at store-listing metadata — no APK/IPA extraction. When a surface is
+enterprise-gated, it switches to the documented no-credential ladder
+instead. It does research a competent analyst could do by hand; it just
+does it in one sitting.
+
+**Does it need `agy`, Playwright, or any MCP server?**
+No. Tier 0 — just the skill directory — is the default path and produces
+the full report. Tier 1 (Playwright MCP) upgrades UI claims from
+`Reported` to `Confirmed` by exploring the live app. Tier 2 (`agy`) makes
+research faster by fanning it out. Missing tools degrade the report
+honestly instead of blocking it.
+
+**What does a run cost?**
+It's a long agentic research run — expect deep-research-session scale, not
+a chat message: the skill reads dozens of pages, fetches store listings,
+and walks user journeys. Tier 2 shifts the sweep traffic to `agy`
+(Gemini-backed) and away from your Claude usage. You'll see the token
+meter move; that's what due-diligence-grade coverage costs.
+
+**Why confidence tags instead of just facts?**
+Because SaaS products ship weekly and models' training data goes stale.
+`Confirmed` (directly observed) / `Reported` (a source says so) /
+`Inferred` (reasoning shown) tells the reader exactly what to re-verify
+before making a decision on this report — and the header date bounds how
+much of it has already decayed.
+
+**Does it work outside Claude Code?**
+v1.0 is Claude Code-only. The kit deliberately concentrates
+harness-specific tool names in two places (the Before-starting block and
+the browser/engine sections) so a multi-harness adapter is a mapping
+exercise, not a rewrite — see the roadmap.
+
+## Roadmap
+
+- **Multi-harness adapters** — same playbooks, other agent harnesses.
+- **More examples** — examples are generated by running the finished kit
+  and regenerate on minor-version milestones (next: hardware-centric).
+- **Community sweeps** — new research sweeps follow the house shape
+  (role / one question / sourcing / output shape); see
+  [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Contributing
+
+Playbook conventions, the validation gate, and the example policy are in
+[CONTRIBUTING.md](CONTRIBUTING.md). `scripts/validate-skill.sh` checks the
+kit's structural invariants; CI runs it plus markdownlint and a link check
+on every push. MIT licensed — see [LICENSE](LICENSE).
