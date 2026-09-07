@@ -19,6 +19,10 @@ just because one tool is missing:
 2. **`agent-browser` CLI** (fallback, verified installed). Same job,
    shell-based: `agent-browser open <url>`, `agent-browser snapshot`,
    `agent-browser screenshot <path>`, `agent-browser eval '<js>'`.
+
+   Whichever browser tool is active: drive client-rendered apps by
+   CLICK, not keyboard shortcuts — one stray hotkey while focus sits on
+   the wrong element can navigate the tab away mid-journey.
    It speaks accessibility-tree YAML like the MCP does, so the audit steps
    below translate 1:1 — just batch commands in single bash calls.
 3. **Neither** → degrade gracefully: `WebFetch` the public pages, say so

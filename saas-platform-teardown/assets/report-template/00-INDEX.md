@@ -2,6 +2,9 @@
 
 > Researched: <date>. Sources current as of this date; SaaS products change
 > frequently — verify anything decision-critical before acting on it.
+>
+> *(Write this file LAST — it is the executive summary of everything the
+> other section files establish, including the access-methods table.)*
 
 ## What this is
 

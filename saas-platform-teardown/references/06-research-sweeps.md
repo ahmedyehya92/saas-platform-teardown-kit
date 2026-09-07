@@ -35,6 +35,9 @@ reader's confidence.
 
 Fire once Phase 0 has a product name/domain. Work in priority order — the
 first five unblock later phases, so they run first under either engine.
+Sweep 13 is conditional by design: when Phase 0 found no hardware,
+recording it as skipped-conditional in the sweep ledger is the correct
+outcome, not a gap.
 
 1. **Company facts** — "Find <product>'s parent company, founding year,
    funding stage/amount if public, and approximate headcount. Cite each
@@ -164,6 +167,11 @@ and few pinned sources. Instead:
 - **Append per-fact lines to the recon dossier as you go** (claim, source
   URL, confidence) rather than holding facts in working memory for the
   whole run.
+- **Wayback exception (sweep 15):** some fetchers refuse
+  `web.archive.org` itself. The workaround is the availability API —
+  `https://archive.org/wayback/available?url=<url>` — plus fetching a
+  raw snapshot URL it returns; that yields earliest/recent capture dates
+  and the archived page content without touching the blocked host.
 
 ## Engine B — `agy` (optional power path)
 

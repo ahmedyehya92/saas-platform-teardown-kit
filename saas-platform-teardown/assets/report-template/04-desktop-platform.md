@@ -18,7 +18,9 @@ both are legitimate findings.
 ## Release artifacts (per OS and architecture)
 
 Every combination the vendor offers, each with its exact direct download
-URL, current version, file size, release date, and release-notes link. A
+URL, current version, file size (if the server returns no content length
+— common on signed-URL redirectors — record "not disclosed", don't
+guess), release date, and release-notes link. A
 missing architecture (no Windows arm64, no Linux) is a finding about
 engineering investment — record it in Notes.
 
