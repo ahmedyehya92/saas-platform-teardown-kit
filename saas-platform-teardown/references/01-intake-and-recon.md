@@ -8,7 +8,7 @@ audit instead of guessing.
 
 ## Steps
 
-1. **Fetch the landing page** with `web_fetch`. Extract:
+1. **Fetch the landing page** (static fetch). Extract:
    - Product name, one-line positioning, target customer
    - Nav/footer links: Pricing, Docs, Changelog/Release notes, Status page,
      Blog, Careers (job descriptions leak tech stack), Integrations/App
@@ -28,9 +28,11 @@ audit instead of guessing.
      useful later for inferring backend architecture from incident history)
 
    If a link isn't in the footer, search for it: `"<product name>" app store`,
-   `"<product name>" download mac`, `"<product name>" api docs`, etc. Use
-   `agy` for this per the search playbook — it's faster to fan these out in
-   parallel than to do them one `web_search` call at a time.
+   `"<product name>" download mac`, `"<product name>" api docs`, etc. Run
+   these lookups as research sweeps per `references/06-research-sweeps.md`,
+   picking the engine by that playbook's engine-pick rule — the built-in
+   web search is the default; `agy`, when installed, fans them out in
+   parallel.
 
 3. **Build the complete link inventory — this is the web platform's release
    artifact, not busywork.** A web app "ships" URLs, so the durable record
@@ -81,7 +83,7 @@ audit instead of guessing.
    marketing site on Webflow/Next.js in front of an app on a completely
    different framework). Use whatever current Wappalyzer-class tool is
    available (CLI, MCP, or a manual look at response headers / script tags
-   via `web_fetch` if no tool is installed). Note the two stacks separately.
+   on the fetched page if no tool is installed). Note the two stacks separately.
 
 7. **Establish company-level facts** via `agy` or `web_search`: founding
    year, ownership, funding rounds with amounts/dates/lead investors (press

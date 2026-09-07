@@ -26,7 +26,7 @@ saas-platform-teardown/
 │   ├── 03-mobile-platform-audit.md   # store artifacts (no binary extraction), mobile journeys
 │   ├── 04-desktop-platform-audit.md  # per-OS/arch release artifacts, version history, desktop journeys
 │   ├── 05-integration-architecture.md# platform synthesis + business-objective mapping
-│   ├── 06-agy-search-playbook.md     # prompt-engineered agy research incl. revenue sweeps
+│   ├── 06-research-sweeps.md         # prompt-engineered research sweeps incl. revenue
 │   ├── 07-report-assembly.md         # how to write the final MD output
 │   └── 08-hardware-integrations.md   # CONDITIONAL — loaded only if hardware is found
 └── assets/report-template/           # the skeleton the final report is built from

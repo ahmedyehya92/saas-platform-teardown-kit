@@ -26,7 +26,7 @@ more truthful, more reproducible, or easier to run, in that order.
 
 ## Proposing a new research sweep
 
-Sweeps live in `references/06-agy-search-playbook.md` and are engine-agnostic —
+Sweeps live in `references/06-research-sweeps.md` and are engine-agnostic —
 they run identically through the built-in WebSearch/WebFetch path or the
 optional `agy` path. Keep every sweep in the house shape:
 

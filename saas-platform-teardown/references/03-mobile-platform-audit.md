@@ -4,8 +4,8 @@ Goal: establish, with sources, whether native mobile apps exist and — if so
 — what they can and can't do relative to web; capture their release
 artifacts from the store listings; and reconstruct their user journeys.
 
-Playwright MCP can't drive a native mobile app, and most Claude Code
-environments won't have a device or emulator attached, so this phase works
+The live browser can't drive a native mobile app, and most environments
+won't have a device or emulator attached, so this phase works
 from store listings, changelogs, reviews, and the no-credential ladder
 (canonical version: `references/02-web-platform-audit.md` — same rungs, same
 evidence grades). If a device or emulator IS available and the product has
@@ -23,7 +23,7 @@ to the store-listing method.
 
 2. **Pull structured listing data — these ARE the mobile release
    artifacts.** Via an app-store review/listing CLI if one is installed,
-   otherwise `web_fetch` the store page directly:
+   otherwise fetch the store page directly:
    - Description and screenshots (what the store screenshots emphasize often
      reveals the mobile-specific value prop, e.g. "scan receipts on the go")
    - Supported OS versions, app size, last update date
